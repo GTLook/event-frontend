@@ -1,34 +1,6 @@
-//request from database to verfiy users
-const request = (path, method = 'get', body = null) => {
-  let bearerToken = ''
-  const token = localStorage.getItem('token')
-
-  if(token) bearerToken = `Bearer ${token}`
-
-  return axios(`http://localhost:5000${path}`, {
-    method: method,
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': bearerToken
-    },
-    data: body
-  })
-}
-
 //use IIF to log in users
 (() => {
   'use strict';
-
-  request('/auth/token')
-  .then((response) => {
-    // user is authenticated
-  })
-  .catch((error) => {
-    // user is not authenticated
-  })
-
-
 
   // login form
   document.querySelector('.form-signin').addEventListener('submit', (event) => {
@@ -41,10 +13,46 @@ const request = (path, method = 'get', body = null) => {
     .then((response) => {
       document.querySelector('#loginError').classList.add('d-none')
       localStorage.setItem('token', response.data.token)
-      window.location = '/Analytics.html'
+      window.location = '/analytics.html'
     })
     .catch((error) => {
       document.querySelector('#loginError').classList.remove('d-none')
     })
   })
 })();
+
+//show create User modal
+document.querySelector('#createUserButton').addEventListener('click', (event) => {
+  event.preventDefault()
+  document.querySelector('#createUserModal').classList.remove('d-none')
+  document.querySelector('#userSignIn').classList.add('d-none')
+  document.querySelector('#modalFooterCreate').classList.add('d-none')
+  document.querySelector('#modalFooterLogIn').classList.remove('d-none')
+});
+
+//show log in modal
+document.querySelector('#backToLogInButton').addEventListener('click', (event) => {
+  event.preventDefault()
+  document.querySelector('#createUserModal').classList.add('d-none')
+  document.querySelector('#userSignIn').classList.remove('d-none')
+  document.querySelector('#modalFooterCreate').classList.remove('d-none')
+  document.querySelector('#modalFooterLogIn').classList.add('d-none')
+});
+
+//create New User
+document.querySelector("#createUserModal").addEventListener('submit', (event) => {
+  event.preventDefault()
+
+  const username = event.target.createUsername.value
+  const password = event.target.createPassword.value
+
+  request('/users', 'post', { username , password })
+  .then((response) => {
+    document.querySelector('#creationError').classList.add('d-none')
+    document.querySelector('#creationSucsess').classList.remove('d-none')
+  })
+  .catch((error) => {
+    document.querySelector('#creationError').classList.remove('d-none')
+    document.querySelector('#creationSucsess').classList.add('d-none')
+  })
+});

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Visualizer Signin</title>
+    <title>Event Log In</title>
 
     <!-- bootstrap links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -16,12 +16,13 @@
     <link href="/css/styles.css" rel="stylesheet">
     <link href="/css/login.css" rel="stylesheet">
     <!-- Scripts -->
+    <script defer src="/src/helper.js"></script>
     <script defer src="/src/index.js"></script>
 
   </head>
 
   <header>
-    <!-- nav bar (taken off login page) -->
+    <!-- nav bar (removed from login page) -->
     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light ">
       <a class="navbar-brand" href="#">Event</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,26 +48,36 @@
     </nav> -->
 
    <!-- Log In Modal -->
-    <div class="modal fade in" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade in" id='loginModal' tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <!-- add logo image here -->
-            <!-- <img id="logo" src="/img/velociraptors.png" alt="" width="200" height="200"> -->
+          <div class="modal-header justify-content-center">
+            <!-- logo image here -->
+            <img id="logo" src="../img/userIcon.jpg" alt="" width="200" height="200">
           </div>
           <div class="modal-body">
-            <form class="form-signin">
+            <form class="form-signin" id='userSignIn'>
               <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
-              <!-- <label for="username" class="sr-only">Username</label> -->
-              <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
-              <!-- <label for="inputPassword" class="sr-only">Password</label> -->
+              <input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus required>
               <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required autocomplete="off">
               <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
               <div id="loginError" class="text-center d-none">Incorrect Username or Password</div>
             </form>
+            <!-- Create User -->
+            <form class="form-createUser d-none" id='createUserModal'>
+              <h1 class="h3 mb-3 font-weight-normal text-center">Create Account</h1>
+              <input type="text" name="createUsername" id="createUsername" class="form-control" placeholder="Username">
+              <input type="password" name="createPassword" id="createPassword" class="form-control" placeholder="Password" autocomplete="off" >
+              <button id='createUser' class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
+              <div id="creationError" class="text-center d-none">Username is already taken</div>
+              <div id="creationSucsess" class="text-center d-none">Account created</div>
+            </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Guest</button>
+          <div class="modal-footer justify-content-center" id='modalFooterCreate'>
+            <button id='createUserButton' type="button" class="btn btn-default">Create Account</button>
+          </div>
+          <div class="modal-footer justify-content-center d-none" id='modalFooterLogIn'>
+            <button id='backToLogInButton' type="button" class="btn btn-default">Log In</button>
           </div>
         </div>
       </div>
@@ -85,7 +96,7 @@
         <h1 class=''>Sign in to get started!</h1>
       </div>
       <div class="row justify-content-center">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Log in</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Log in</button>
       </div>
     </div>
   </body>

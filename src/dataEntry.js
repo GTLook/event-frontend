@@ -1,10 +1,4 @@
-// authe gate
+// authe gate, // user is logged in   // user is not logged in
 request('/auth/token')
-.then(function(response){
-  // user is logged in
-  document.querySelector('.user-id').innerHTML = response.data.id
-})
-.catch(function(error){
-  // user is not logged in
-  window.location = '/index.html'
-})
+.then((response) => {document.querySelector('.user-id').innerHTML = response.data.id})
+.catch((error) => { window.location = '/index.html' })

@@ -1,13 +1,7 @@
-// authe gate
+// authe gate, // user is logged in   // user is not logged in
 request('/auth/token')
-.then(function(response){
-  // user is logged in
-  document.querySelector('.user-id').innerHTML = response.data.id
-})
-.catch(function(error){
-  // user is not logged in
-  window.location = '/index.html'
-})
+.then((response) => { })
+.catch((error) => { window.location = '/index.html' })
 
 const chart1 = document.getElementById('chart1').getContext('2d');
 const chart2 = document.getElementById('chart2').getContext('2d');
