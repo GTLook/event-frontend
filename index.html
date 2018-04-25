@@ -10,19 +10,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
     <!-- Custom styles -->
     <link href="/css/styles.css" rel="stylesheet">
-
+    <link href="/css/login.css" rel="stylesheet">
     <!-- Scripts -->
     <script defer src="/src/index.js"></script>
-    <!-- <script defer src="/src/*******.js"></script> -->
+
   </head>
 
-  <body>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Log in</button>
+  <header>
+    <!-- nav bar (taken off login page) -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+      <a class="navbar-brand" href="#">Event</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Analytics</a>
+          </li> -->
+          <!-- Button trigger modal -->
+          <!-- <li class="nav-item">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Log in</button>
+          </li>
+        </ul>
+      </div>
+    </nav> -->
 
-    <!-- Modal -->
+   <!-- Log In Modal -->
     <div class="modal fade in" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -32,13 +56,13 @@
           </div>
           <div class="modal-body">
             <form class="form-signin">
-              <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
               <!-- <label for="username" class="sr-only">Username</label> -->
               <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
               <!-- <label for="inputPassword" class="sr-only">Password</label> -->
               <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required autocomplete="off">
               <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-              <div id="loginError" class="hide-auth-error">Incorrect Username or Password</div>
+              <div id="loginError" class="text-center d-none">Incorrect Username or Password</div>
             </form>
           </div>
           <div class="modal-footer">
@@ -47,12 +71,22 @@
         </div>
       </div>
     </div>
+  </header>
 
-    header
-    <div>
-      <canvas id="myChart" width="400" height="400"></canvas>
+  <body>
+    <div class="row banner">
+      <div class='bannerText'>
+        <h1 >Event</h1><br>
+        <span><h4> See your data, control your buisness.</h4></span>
+      </div>
     </div>
-
-
+    <div class="signIn">
+      <div class='row justify-content-center'>
+        <h1 class=''>Sign in to get started!</h1>
+      </div>
+      <div class="row justify-content-center">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Log in</button>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,20 +1,50 @@
+//request from database to verfiy users
+const request = (path, method = 'get', body = null) => {
+  let bearerToken = ''
+  const token = localStorage.getItem('token')
 
-const ctx = document.getElementById('myChart').getContext('2d');
-const chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'line',
+  if(token) bearerToken = `Bearer ${token}`
 
-    // The data for our dataset
-    data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [{
-            label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 10, 5, 2, 20, 30, 45],
-        }]
+  return axios(`http://localhost:5000${path}`, {
+    method: method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': bearerToken
     },
+    data: body
+  })
+}
 
-    // Configuration options go here
-    options: {}
-});
+//use IIF to log in users
+(() => {
+  'use strict';
+
+  request('/auth/token')
+  .then((response) => {
+    // user is authenticated
+  })
+  .catch((error) => {
+    // user is not authenticated
+  })
+
+
+
+  // login form
+  document.querySelector('.form-signin').addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const username = event.target.username.value
+    const password = event.target.password.value
+
+    request('/auth/token', 'post', { username , password })
+    .then((response) => {
+      document.querySelector('#loginError').classList.add('d-none')
+      localStorage.setItem('token', response.data.token)
+      window.location = '/Analytics.html'
+    })
+    .catch((error) => {
+      document.querySelector('#loginError').classList.remove('d-none')
+    })
+  })
+})();
