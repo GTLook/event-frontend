@@ -28,8 +28,8 @@ const objChart1 = new Chart(chart1, {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [{
       label: "Months Working",
-      backgroundColor: colors,
-      borderColor: colors,
+      //backgroundColor: colors,
+      borderColor: 'rgb(21, 68, 239)',
       data: [0, 10, 5, 2, 20, 30, 45],
     }]
   }

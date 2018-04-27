@@ -24,10 +24,14 @@ request('/data')
     for(let element in obj){
       if(element === 'Main'){
         const newCell = createMainDrop(obj)
+        newCell.setAttribute('data-id', obj.id)
+        newCell.setAttribute('data-element', element)
         newRow.appendChild(newCell)
       }
       else if(element === 'Secondary'){
         const newCell = createSecondDrop(obj)
+        newCell.setAttribute('data-id', obj.id)
+        newCell.setAttribute('data-element', element)
         newRow.appendChild(newCell)
       }
       else{
@@ -46,7 +50,6 @@ request('/data')
             console.log(error)
           })
         })
-
         if(element == 'id') newCell.setAttribute('scope','row')
         else newCell.setAttribute('contenteditable',true)
         if(element === 'Start' || element === 'End') newCell.innerHTML = moment(obj[element]).format('YYYY-MM-DD HH:MM')
@@ -77,7 +80,10 @@ const createMainDrop = (obj) => {
   const mainDropValues = [{name:'Start Event', id: 1}, {name:'Pause Event', id:2}, {name:'End Event',id:3}]
   //const newDropdown = document.createElement('button')
   obj.name = obj.Main
-  return dropdown(obj, mainDropValues)
+  return dropdown(obj, mainDropValues, (id, ele)=> {
+    request(`/data/${id}`, 'put', {element:'Main', data: ele.id})
+    .then(response => {})
+  })
 }
 
 const createSecondDrop = (obj) => {
@@ -86,10 +92,13 @@ const createSecondDrop = (obj) => {
   //const newDropdown = document.createElement('button')
   // console.log(obj)
   obj.name = obj.Secondary
-  return dropdown(obj, mainDropValues)
+  return dropdown(obj, mainDropValues, (id, ele)=> {
+    request(`/data/${id}`, 'put', { element:'Secondary', data: ele.id})
+    .then(response => {})
+  })
 }
 
-const dropdown = (obj, dropValues) => {
+const dropdown = (obj, dropValues, cb) => {
   const td = document.createElement('td')
   const label = document.createElement('button')
   label.classList.add('btn')
@@ -102,7 +111,7 @@ const dropdown = (obj, dropValues) => {
   label.innerHTML = obj.name
   td.appendChild(label)
 
-  const dropdown = dropValues.reduce((acc, ele)=> {
+  const dropdownValues = dropValues.reduce((acc, ele)=> {
     const a = document.createElement('a')
     a.classList.add('dropdown-item')
     a.href = '#'
@@ -111,12 +120,12 @@ const dropdown = (obj, dropValues) => {
     acc.appendChild(a)
     a.addEventListener('click', function(event){
       label.innerHTML = event.target.innerHTML
-
+      cb(obj.id, ele)
     })
     return acc
   }, document.createElement('div'))
-  dropdown.classList.add('dropdown-menu')
-  td.appendChild(dropdown)
+  dropdownValues.classList.add('dropdown-menu')
+  td.appendChild(dropdownValues)
 
   return td
 }
