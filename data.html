@@ -12,6 +12,12 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+
+  <!-- data table links -->
+  <!-- <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  <script defer type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script> -->
 
   <!-- Custom styles -->
   <link href="/css/styles.css" rel="stylesheet">
@@ -24,7 +30,7 @@
 </head>
 
 <body>
-  <!-- nav bar (taken off login page) -->
+  <!-- nav bar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light ">
     <a class="navbar-brand" href="#">Event</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,55 +47,26 @@
         <li class="nav-item">
           <a class="nav-link" href="analytics.html">Analytics<span class="sr-only">(current)</span></a>
         </li>
-        <!-- Button trigger log in modal -->
-        <!-- <li class="nav-item">
-            <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Log in</button>
-          </li> -->
       </ul>
     </div>
   </nav>
 
   <!-- data table -->
   <container>
-    <div class="table-responsive-lg">
-      <table class="table" id=mainData>
-        <div id="table" class="table-editable">
-          <span class="table-add glyphicon glyphicon-plus"></span>
-          <table class="table">
-            <tr>
-              <th>Name</th>
-              <th>Value</th>
-              <th></th>
-              <th></th>
+    <div class="row datatable">
+      <div class="col">
+        <table class="table table-bordered table-hover table-sm">
+          <thead>
+            <tr id='tableHead'>
+              <!-- table header renders here -->
             </tr>
-            <tr>
-              <td contenteditable="true">Stir Fry</td>
-              <td contenteditable="true">stir-fry</td>
-              <td>
-                <span class="table-remove glyphicon glyphicon-remove"></span>
-              </td>
-              <td>
-                <span class="table-up glyphicon glyphicon-arrow-up"></span>
-                <span class="table-down glyphicon glyphicon-arrow-down"></span>
-              </td>
-            </tr>
-            <!-- This is our clonable table line -->
-            <tr class="hide">
-              <td contenteditable="true">Untitled</td>
-              <td contenteditable="true">undefined</td>
-              <td>
-                <span class="table-remove glyphicon glyphicon-remove"></span>
-              </td>
-              <td>
-                <span class="table-up glyphicon glyphicon-arrow-up"></span>
-                <span class="table-down glyphicon glyphicon-arrow-down"></span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <button id="export-btn" class="btn btn-primary">Export Data</button>
-        <p id="export"></p>
-    </div>
+          </thead>
+          <tbody id='tableBody'>
+              <!-- table renders here -->
+          </tbody>
+        </table>
+        <!-- <button id='formSubmit'> Update</button> -->
+      </div>
     </div>
   </container>
 
