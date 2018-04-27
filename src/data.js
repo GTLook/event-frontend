@@ -121,7 +121,7 @@ const dropdown = (obj, dropValues, cb) => {
     acc.appendChild(a)
     a.addEventListener('click', function(event){
       label.innerHTML = event.target.innerHTML
-      newRow.classList.add(contextualRow(obj))
+      // label.classList.add(contextualRow(obj))
       cb(obj.id, ele)
     })
     return acc

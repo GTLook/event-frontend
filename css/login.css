@@ -12,6 +12,8 @@
 .bannerText {
     text-align: center;
     position: relative;
+    font-size: 50px;
+    font-weight: 800;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
