@@ -1,14 +1,6 @@
 .banner {
-    /* The image used */
     background-image: url("../img/analyticsImg.jpg");
-
-    /* Set a specific height */
     height: 300px;
-
-    /* margin */
-    /* margin-top: auto; */
-
-    /* Position and center the image to scale nicely on all screens */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -32,4 +24,16 @@
   background-size: cover;
   background-color: #D3D3D3;
   padding: 50px;
+  opacity: .7;
+}
+
+.background {
+
+  background-image: url("../img/analyticsBackground.jpg");
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relativet;
+  opacity: .5;
 }

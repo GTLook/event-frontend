@@ -13,7 +13,7 @@
     .then((response) => {
       document.querySelector('#loginError').classList.add('d-none')
       localStorage.setItem('token', response.data.token)
-      window.location = '/analytics.html'
+      window.location = '/data.html'
     })
     .catch((error) => {
       document.querySelector('#loginError').classList.remove('d-none')

@@ -20,6 +20,9 @@ request('/data')
   const tableBody = document.querySelector('#tableBody')
   response.data.data.forEach(obj => {
     const newRow = document.createElement('tr')
+    //asign collors
+    newRow.classList.add(contextualRow(obj))
+    console.log(obj.Secondary)
     //newRow.setAttribute('scope','row')
     for(let element in obj){
       if(element === 'Main'){
@@ -39,9 +42,7 @@ request('/data')
         newCell.setAttribute('data-id', obj.id)
         newCell.setAttribute('data-element', element)
         newCell.addEventListener('blur',function(event){
-          // console.log(event.target.innerHTML)
-          // console.log(event.target.getAttribute('data-id'))
-          // console.log(event.target.getAttribute('data-element'))
+
           request(`/data/${event.target.getAttribute('data-id')}`, 'put', {element:event.target.getAttribute('data-element'), data: event.target.innerHTML})
           .then(response => {
             event.target.innerHTML = resonse.data
@@ -120,6 +121,7 @@ const dropdown = (obj, dropValues, cb) => {
     acc.appendChild(a)
     a.addEventListener('click', function(event){
       label.innerHTML = event.target.innerHTML
+      newRow.classList.add(contextualRow(obj))
       cb(obj.id, ele)
     })
     return acc
@@ -128,4 +130,12 @@ const dropdown = (obj, dropValues, cb) => {
   td.appendChild(dropdownValues)
 
   return td
+}
+
+const contextualRow = (obj) => {
+  if(obj.Secondary == 'Success') return 'table-success'
+  if(obj.Secondary == 'Running') return 'table-success'
+  if(obj.Secondary == 'Starting back up') return 'table-info'
+  if(obj.Secondary == 'Waiting on materials') return 'table-danger'
+  if(obj.Secondary == 'Failed') return 'table-danger'
 }
