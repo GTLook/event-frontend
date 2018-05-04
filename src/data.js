@@ -41,8 +41,7 @@ request('/data')
         const newCell = document.createElement('td')
         newCell.setAttribute('data-id', obj.id)
         newCell.setAttribute('data-element', element)
-        newCell.addEventListener('blur',function(event){
-
+        newCell.addEventListener('blur', (event) => {
           request(`/data/${event.target.getAttribute('data-id')}`, 'put', {element:event.target.getAttribute('data-element'), data: event.target.innerHTML})
           .then(response => {
             event.target.innerHTML = resonse.data
@@ -62,15 +61,15 @@ request('/data')
   })
   return response
 })
-.then((response)=>{  //creates empty row on bottom
+.then((response) => {  //creates empty row on bottom
   const tableBody = document.querySelector('#tableBody')
   const newRow = document.createElement('tr')
-  let idCount = 0
+  let idCount = 1
   Object.keys(response.data.data[0]).forEach(key => {
-      idCount++
       const newCell = document.createElement("td")
       if(idCount==1) newCell.innerHTML = response.data.data.length + 1
       else newCell.setAttribute('contenteditable',true)
+      idCount++
       newRow.appendChild(newCell)
     })
     tableBody.appendChild(newRow)
