@@ -10,16 +10,19 @@ const colors = ['rgb(229, 54, 39)',
                 'rgb(21, 68, 239)',
                 'rgb(209, 20, 239)']
 
-const chart1 = document.getElementById('chart1').getContext('2d');
-const chart2 = document.getElementById('chart2').getContext('2d');
-const chart3 = document.getElementById('chart3').getContext('2d');
-const chart4 = document.getElementById('chart4').getContext('2d');
-const chart5 = document.getElementById('chart5').getContext('2d');
+const chart1 = document.getElementById('chart1')
+const chart2 = document.getElementById('chart2')
+const chart3 = document.getElementById('chart3')
 
 request('/data')
 .then((response) => {
-  console.log(response.data)
+  return response.data.data.map(dataObj => ({...dataObj, timeDif: (new Date(dataObj.End) - new Date(dataObj.Start))/(1000*60*60)}))
 })
+.then((response) => {
+  response.data.data.forEach(dataObj => { })
+  console.log(response)
+})
+
 
 //line chart
 const objChart1 = new Chart(chart1, {
@@ -57,7 +60,7 @@ const objChart2 = new Chart(chart2, {
       }]
     }
   }
-});
+})
 
 const objChart3 = new Chart(chart3, {
   // The type of chart we want to create
@@ -74,33 +77,35 @@ const objChart3 = new Chart(chart3, {
   },
   // Configuration options go here
   options: {}
-});
+})
 
-const objChart4 = new Chart(chart4, {
-  // The type of chart we want to create
-  type: 'polarArea',
-  // The data for our dataset
-  data: {
-    labels: ["Failures", 'Downtimes', 'Customer',"Success"],
-    datasets: [{
-      label: "Efficiency",
-      backgroundColor: colors,
-      borderColor: colors,
-      data: [2, 7, 5, 16]
-    }]
-  },
-  // Configuration options go here
-  options: {}
-});
 
-const objChart5 = new Chart(chart5, {
-  // The type of chart we want to create
-  type: 'radar',
-
-  data: {
-    labels: ['Sucess', 'Failures', 'Downtime'],
-    datasets: [{
-        data: [20, 10, 4,2]
-    }]
-}
-});
+//  old charts
+// const objChart4 = new Chart(chart4, {
+//   // The type of chart we want to create
+//   type: 'polarArea',
+//   // The data for our dataset
+//   data: {
+//     labels: ["Failures", 'Downtimes', 'Customer',"Success"],
+//     datasets: [{
+//       label: "Efficiency",
+//       backgroundColor: colors,
+//       borderColor: colors,
+//       data: [2, 7, 5, 16]
+//     }]
+//   },
+//   // Configuration options go here
+//   options: {}
+// });
+//
+// const objChart5 = new Chart(chart5, {
+//   // The type of chart we want to create
+//   type: 'radar',
+//
+//   data: {
+//     labels: ['Sucess', 'Failures', 'Downtime'],
+//     datasets: [{
+//         data: [20, 10, 4,2]
+//     }]
+// }
+// });
