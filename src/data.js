@@ -22,7 +22,6 @@ request('/data')
     const newRow = document.createElement('tr')
     //asign collors
     newRow.classList.add(contextualRow(obj))
-    console.log(obj.Secondary)
     //newRow.setAttribute('scope','row')
     for(let element in obj){
       if(element === 'Main'){
@@ -57,23 +56,67 @@ request('/data')
         newRow.appendChild(newCell)
       }
     }
+    //adds delete newRow
+    const deleteCell = document.createElement('td')
+    deleteCell.classList.add('btn')
+    deleteCell.setAttribute('data-id', obj.id)
+    deleteCell.setAttribute('type', 'button')
+    deleteCell.innerHTML = "Delete"
+    deleteCell.addEventListener('click', (event) => {
+      request(`/data/${event.target.getAttribute('data-id')}`, 'delete' )
+      .then(response => {
+        location.reload()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    })
+    newRow.appendChild(deleteCell)
+    //appends to table
     tableBody.appendChild(newRow)
   })
   return response
 })
 .then((response) => {  //creates empty row on bottom
-  const tableBody = document.querySelector('#tableBody')
-  const newRow = document.createElement('tr')
-  let idCount = 1
-  Object.keys(response.data.data[0]).forEach(key => {
-      const newCell = document.createElement("td")
-      if(idCount==1) newCell.innerHTML = response.data.data.length + 1
-      else newCell.setAttribute('contenteditable',true)
-      idCount++
-      newRow.appendChild(newCell)
+  const createNewButton = document.querySelector('#createNewRow')
+  createNewButton.addEventListener('click', (event) => {
+    event.preventDefault()
+    request('/auth/token')
+    .then(response => {
+        return request('/data', 'post', { user_id:response.data.id })
     })
-    tableBody.appendChild(newRow)
+    .then((response) => {
+      const newId = response.data.data.length + 1
+      console.log(response)
+      return (response)})
+    .then((response) => {
+      location.reload()})
+    .catch()
+  })
+//   const tableBody = document.querySelector('#tableBody')
+//   const newRow = document.createElement('tr')
+//   let idCount = 1
+//   Object.keys(response.data.data[0]).forEach(key => {
+//     console.log(key);
+//
+//       if(key === 'Main'){
+//         const newCell = createMainDrop(response.data.data)
+//         newCell.setAttribute('data-id', key.id)
+//         newCell.setAttribute('data-element', element)
+//         newRow.appendChild(newCell)
+//       }
+//       else {
+//           const newCell = document.createElement("td")
+//           if(idCount==1) newCell.innerHTML = response.data.data.length + 1
+//           else newCell.setAttribute('contenteditable',true)
+//           idCount++
+//           newRow.appendChild(newCell)
+//       }
+//
+//     })
+//     tableBody.appendChild(newRow)
 })
+
 
 
 const createMainDrop = (obj) => {
@@ -82,7 +125,7 @@ const createMainDrop = (obj) => {
   obj.name = obj.Main
   return dropdown(obj, mainDropValues, (id, ele)=> {
     request(`/data/${id}`, 'put', {element:'Main', data: ele.id})
-    .then(response => {})
+    // .then(response => {})
   })
 }
 
@@ -94,7 +137,7 @@ const createSecondDrop = (obj) => {
   obj.name = obj.Secondary
   return dropdown(obj, mainDropValues, (id, ele)=> {
     request(`/data/${id}`, 'put', { element:'Secondary', data: ele.id})
-    .then(response => {})
+    // .then(response => {})
   })
 }
 
