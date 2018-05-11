@@ -5,7 +5,7 @@ const request = (path, method = 'get', body = null) => {
 
   if(token) bearerToken = `Bearer ${token}`
 
-  return axios(`http://localhost:5000${path}`, {
+  return axios(`https://lit-woodland-71395.herokuapp.com/${path}`, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
